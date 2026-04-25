@@ -26,12 +26,11 @@ Using synthetic data with known true coefficients ($\beta_1 = 2$,
 $\beta_2 = 3$), we vary the correlation $\rho$ between two explanatory
 variables from 0 to 0.9999 and observe:
 
-- OLS coefficients remain stable for low $\rho$ but diverge completely
-  as $\rho \to 1$
-- The condition number $\kappa(X^\top X) = \lambda_{max} / \lambda_{min}$
-  grows exponentially, confirming the numerical instability
-- Ridge regression, by adding $\lambda I$ to $X^\top X$ before inversion,
-  stabilizes the estimates even under severe multicollinearity
+1. OLS coefficients remain stable for low $\rho$ but diverge completely as $\rho \to 1$
+2. The condition number $\kappa(X^\top X) = \lambda_{max} / \lambda_{min}$ grows exponentially, confirming the numerical instability
+3. Ridge regression stabilizes the estimates by shifting the eigenvalues of $X^\top X$
+4. The ridge trace reveals the bias-variance tradeoff controlled by $\lambda$
+5. Coefficient instability does not always translate into higher prediction error, which has important implications for interpretability
 
 ## Key Results
 
@@ -51,21 +50,26 @@ True values: $\beta_1 = 2.0$, $\beta_2 = 3.0$
 ```
 ols-instability-ridge-regularization/
 │
-├── notebook.ipynb    # Full analysis with mathematical explanations
+├── notebook.ipynb
 ├── README.md
 └── images/
-    ├── ols_instability.png      # OLS coefficients vs correlation
-    ├── condition_number.png     # Condition number vs correlation
-    └── ols_vs_ridge.png         # OLS vs Ridge comparison
+    ├── ols_instability_coeffs.png
+    ├── condition_number.png
+    ├── ols_vs_ridge.png
+    ├── ridge_trace.png
+    └── mse_comparison.png
 ```
 
 ## Concepts Covered
 
 - OLS analytical estimator and its matrix formulation
 - Multicollinearity and its effect on $X^\top X$
-- Condition number as a diagnostic tool
+- Condition number as a rigorous diagnostic tool
 - Ridge analytical estimator and L2 regularization
-- Bias-variance tradeoff introduced by $\lambda$
+- Eigenvalue interpretation of Ridge stability
+- Bias-variance tradeoff controlled by $\lambda$
+- Ridge trace for visual hyperparameter selection
+- Distinction between coefficient stability and prediction error
 
 ## Requirements
 
